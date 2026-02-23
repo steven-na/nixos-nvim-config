@@ -1,0 +1,82 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1771423170,
+        "narHash": "sha256-K7Dg9TQ0mOcAtWTO/FX/FaprtWQ8BmEXTpLIaNRhEwU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bcc4a9d9533c033d806a46b37dc444f9b0da49dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plugins-lze": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770530412,
+        "narHash": "sha256-QBxZmBu6K+HRrIf381/0eNSVK93OCA0Rn1blx0Vqyng=",
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "rev": "7276233f8fbe883e0a3b2164a836a2b292883a1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lze",
+        "type": "github"
+      }
+    },
+    "plugins-lzextras": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770530361,
+        "narHash": "sha256-Jdg7e8VsJxx3/x6TJlnGrHtno17L5AAiUewOGjf1GGE=",
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
+        "rev": "5abb946ece1b7710761e78588466620acd3be257",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "lzextras",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "plugins-lze": "plugins-lze",
+        "plugins-lzextras": "plugins-lzextras",
+        "wrappers": "wrappers"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771743990,
+        "narHash": "sha256-KNTuqLytdRE0MVhM1hd3IJTlcOG6In/6klbiEDWYOaA=",
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "rev": "0ea455457dac3de9129498f5c50a35153ab56484",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
