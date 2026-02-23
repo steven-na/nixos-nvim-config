@@ -642,6 +642,7 @@ nixInfo.lze.load({
 					},
 					clang_format = {
 						command = "clang-format",
+						prepend_args = { "--style={IndentWidth: 4, TabWidth: 4, UseTab: Never}" },
 					},
 				},
 			})
