@@ -35,6 +35,10 @@ inputs:
             clang-tools
             rust-analyzer
             rustfmt
+            vtsls
+            nodePackages.vscode-langservers-extracted
+            tailwindcss-language-server
+            emmet-ls
         ];
     };
 
@@ -54,6 +58,7 @@ inputs:
             clang-tools
             rustfmt
             nixfmt
+            nodePackages.eslint_d
         ];
     };
 
@@ -63,6 +68,7 @@ inputs:
         data = null;
         extraPackages = with pkgs; [
             cppcheck
+            nodePackages.eslint_d
         ];
     };
 
@@ -106,6 +112,7 @@ inputs:
             nvim-ufo
             promise-async # ufo dependency
             mini-icons # neo-tree + snacks icons
+            nvim-ts-autotag
         ];
     };
     # These are from the tips and tricks section of the neovim wrapper docs!

@@ -150,6 +150,7 @@ map({ "n", "i" }, "<Insert>", "<Nop>", { noremap = true, silent = true })
 map("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- ============================================================
 -- AUTOCOMMANDS
 -- Set autocommands here. See `:help vim.api.nvim_create_autocmd()`
@@ -293,6 +294,50 @@ nixInfo.lze.load({
 	},
 
 	-- LSP servers
+	{ "vtsls", lsp = { filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" } } },
+	{
+		"tailwindcss",
+		lsp = {
+			filetypes = {
+				"html",
+				"css",
+				"scss",
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"svelte",
+			},
+			settings = {
+				tailwindCSS = {
+					experimental = {
+						classRegex = {
+							-- support cva, clsx, cn patterns
+							{ "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+							{ "clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+							{ "cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+						},
+					},
+					validate = true,
+				},
+			},
+		},
+	},
+	{
+		"emmet_ls",
+		lsp = {
+			filetypes = {
+				"html",
+				"css",
+				"scss",
+				"javascriptreact",
+				"typescriptreact",
+				"vue",
+				"svelte",
+			},
+		},
+	},
 	{ "html", lsp = { filetypes = { "html" } } },
 	{
 		"lua_ls",
@@ -357,8 +402,29 @@ nixInfo.lze.load({
 	{ "gopls", lsp = { filetypes = { "go", "gomod", "gowork", "gotmpl" } } },
 	{ "jsonls", lsp = { filetypes = { "json", "jsonc" } } },
 	{ "cssls", lsp = { filetypes = { "css", "scss", "less" } } },
-	{ "eslint", lsp = { filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" } } },
-
+	{
+		"eslint",
+		lsp = {
+			filetypes = {
+				"javascript",
+				"typescript",
+				"javascriptreact",
+				"typescriptreact",
+				"vue",
+				"svelte",
+			},
+			settings = {
+				-- auto fix on save via eslint LSP
+				format = true,
+			},
+			on_attach = function(client, bufnr)
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					buffer = bufnr,
+					command = "EslintFixAll",
+				})
+			end,
+		},
+	},
 	-- ============================================================
 	-- TREESITTER
 	-- Parses and installs grammars automatically on FileType.
@@ -396,6 +462,20 @@ nixInfo.lze.load({
 						end
 					end
 				end,
+			})
+		end,
+	},
+	{
+		"nvim-ts-autotag",
+		auto_enable = true,
+		ft = { "html", "javascriptreact", "typescriptreact", "vue", "svelte", "xml" },
+		after = function(_)
+			require("nvim-ts-autotag").setup({
+				opts = {
+					enable_close = true,
+					enable_rename = true,
+					enable_close_on_slash = true,
+				},
 			})
 		end,
 	},
@@ -591,6 +671,11 @@ nixInfo.lze.load({
 					css = { "prettierd", "prettier" },
 					javascript = { "prettierd", "prettier" },
 					typescript = { "prettierd", "prettier" },
+					javascriptreact = { "prettierd", "prettier" },
+					typescriptreact = { "prettierd", "prettier" },
+					vue = { "prettierd", "prettier" },
+					svelte = { "prettierd", "prettier" },
+					graphql = { "prettierd", "prettier" },
 					python = { "black", "isort" },
 					rust = { "rustfmt" },
 					lua = { "stylua" },
@@ -662,6 +747,12 @@ nixInfo.lze.load({
 				-- e.g. javascript = { "eslint" },
 				c = { "cppcheck" },
 				cpp = { "cppcheck" },
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				javascriptreact = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
+				vue = { "eslint_d" },
+				svelte = { "eslint_d" },
 			}
 			vim.api.nvim_create_autocmd("BufWritePost", {
 				callback = function()
