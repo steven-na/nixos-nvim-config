@@ -39,6 +39,7 @@ inputs:
             nodePackages.vscode-langservers-extracted
             tailwindcss-language-server
             emmet-ls
+            cmake-language-server
         ];
     };
 
@@ -59,6 +60,23 @@ inputs:
             rustfmt
             nixfmt
             nodePackages.eslint_d
+            cmake-format
+        ];
+    };
+
+    config.specs.debug = {
+        after = [ "general" ];
+        lazy = true;
+        extraPackages = with pkgs; [
+            (writeShellScriptBin "codelldb" ''
+                exec ${vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb "$@"
+            '')
+        ];
+        data = with pkgs.vimPlugins; [
+            nvim-dap
+            nvim-dap-ui
+            nvim-dap-virtual-text
+            nvim-nio
         ];
     };
 
