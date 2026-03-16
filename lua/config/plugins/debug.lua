@@ -62,6 +62,10 @@ return {
 		end,
 	},
 	{
+		"nvim-nio",
+		dep_of = "nvim-dap-ui",
+	},
+	{
 		"nvim-dap-ui",
 		on_plugin = { "nvim-dap" },
 		keys = {
