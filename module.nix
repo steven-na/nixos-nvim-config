@@ -40,6 +40,7 @@ inputs:
             tailwindcss-language-server
             emmet-ls
             cmake-language-server
+            jdt-language-server
         ];
     };
 
@@ -61,6 +62,7 @@ inputs:
             nixfmt
             nodePackages.eslint_d
             cmake-format
+            google-java-format
         ];
     };
 

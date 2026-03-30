@@ -170,6 +170,19 @@ return {
 	},
 	{ "cmake", lsp = { filetypes = { "cmake" } } },
 	{
+		"jdtls",
+		lsp = {
+			filetypes = { "java" },
+			settings = {
+				java = {
+					inlayHints = {
+						parameterNames = { enabled = "all" },
+					},
+				},
+			},
+		},
+	},
+	{
 		"rust_analyzer",
 		lsp = {
 			filetypes = { "rust" },
