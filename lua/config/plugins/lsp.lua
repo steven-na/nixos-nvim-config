@@ -173,8 +173,12 @@ return {
 		"jdtls",
 		lsp = {
 			filetypes = { "java" },
+			root_markers = { ".project", "pom.xml", "build.gradle", "build.gradle.kts", "mvnw", "gradlew", ".git" },
 			settings = {
 				java = {
+					project = {
+						referencedLibraries = { "**/*.jar" },
+					},
 					inlayHints = {
 						parameterNames = { enabled = "all" },
 					},
