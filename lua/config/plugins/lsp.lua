@@ -237,4 +237,26 @@ return {
 			end,
 		},
 	},
+	{
+		"hls",
+		lsp = {
+			filetypes = { "haskell", "lhaskell" },
+			root_markers = {
+				"hie.yaml",
+				"stack.yaml",
+				"cabal.project",
+				"*.cabal",
+				"package.yaml",
+				".git",
+			},
+			settings = {
+				haskell = {
+					formattingProvider = "fourmolu",
+					plugin = {
+						hlint = { globalOn = true },
+					},
+				},
+			},
+		},
+	},
 }

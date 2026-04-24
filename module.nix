@@ -41,6 +41,7 @@ inputs:
             emmet-ls
             cmake-language-server
             jdt-language-server
+            haskell-language-server
         ];
     };
 
@@ -63,6 +64,7 @@ inputs:
             nodePackages.eslint_d
             cmake-format
             google-java-format
+            fourmolu
         ];
     };
 

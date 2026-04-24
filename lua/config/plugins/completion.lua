@@ -6,35 +6,32 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
 			local icons = {
-				Text = "󰉿",
+				Text = "",
 				Method = "󰆧",
 				Function = "󰊕",
-				Constructor = "",
-				Field = "󰜢",
+				Constructor = "",
+				Field = "󰇽",
 				Variable = "󰀫",
-				Class = "󰠱",
-				Interface = "",
-				Module = "",
-				Property = "󰜢",
-				Unit = "󰑭",
-				Value = "󰎠",
-				Enum = "",
-				Keyword = "󰌋",
-				Snippet = "",
-				Color = "󰏘",
-				File = "󰈙",
-				Reference = "󰈇",
-				Folder = "󰉋",
-				EnumMember = "",
+				Class = "󰠱 ",
+				Interface = "  ",
+				Module = "  ",
+				Property = "󰜢 ",
+				Unit = " ",
+				Value = "󰎠 ",
+				Enum = " ",
+				Keyword = "󰌋 ",
+				Snippet = " ",
+				Color = "󰏘 ",
+				File = "󰈙 ",
+				Reference = " ",
+				Folder = "󰉋 ",
+				EnumMember = " ",
 				Constant = "󰏿",
-				Struct = "󰙅",
-				Event = "",
+				Struct = "  ",
+				Event = "",
 				Operator = "󰆕",
-				TypeParameter = "",
+				TypeParameter = "󰅲",
 			}
-
-			vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#C792EA", italic = true })
-
 			cmp.setup({
 				experimental = {
 					ghost_text = true,
@@ -51,19 +48,17 @@ return {
 						name = "buffer",
 						option = {
 							get_bufnrs = function()
-								return vim.api.nvim_list_bufs()
+								local bufs = {}
+								for _, win in ipairs(vim.api.nvim_list_wins()) do
+									bufs[vim.api.nvim_win_get_buf(win)] = true
+								end
+								return vim.tbl_keys(bufs)
 							end,
 						},
 						keyword_length = 3,
 					},
-					{
-						name = "path",
-						keyword_length = 3,
-					},
-					{
-						name = "luasnip",
-						keyword_length = 3,
-					},
+					{ name = "luasnip" },
+					{ name = "path" },
 				}),
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -82,24 +77,44 @@ return {
 						{ "i", "c" }
 					),
 				}),
-				window = {
-					completion = cmp.config.window.bordered({
-						border = "double",
-						winhighlight = "Normal:Normal,FloatBorder:Normal,Search:NONE",
-						side_padding = 0,
-						col_offset = -2,
-					}),
-					documentation = cmp.config.window.bordered(),
-				},
+				-- window = {
+				-- 	completion = cmp.config.window.bordered({
+				-- 		border = "double",
+				-- 		winhighlight = "Normal:Normal,FloatBorder:Normal,Search:NONE",
+				-- 		side_padding = 0,
+				-- 		col_offset = -2,
+				-- 	}),
+				-- 	documentation = cmp.config.window.bordered(),
+				-- },
 				formatting = {
-					fields = { "kind", "abbr", "menu" },
+					fields = { "abbr", "kind" },
 					format = function(_, vim_item)
 						local kind = vim_item.kind
-						vim_item.kind = icons[kind] or ""
-						vim_item.menu = " (" .. (kind or "Unknown") .. ") "
+						vim_item.kind = "[" .. kind .. "]"
+						-- vim_item.kind = icons[kind] or ""
+						-- vim_item.menu = " (" .. (kind or "Unknown") .. ") "
 						return vim_item
 					end,
 				},
+			})
+
+			-- Use buffer source for `/` and `?` (search).
+			cmp.setup.cmdline({ "/", "?" }, {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- Use path + cmdline sources for `:` (command mode).
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
+				}),
+				matching = { disallow_symbol_nonprefix_matching = false },
 			})
 		end,
 	},

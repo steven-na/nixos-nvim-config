@@ -55,6 +55,7 @@ return {
 					cpp = { "clang_format" },
 				cmake = { "cmake_format" },
 					java = { "google-java-format" },
+					haskell = { "fourmolu" },
 					["_"] = { "trim_whitespace" },
 				},
 
@@ -69,6 +70,10 @@ return {
 					},
 					["google-java-format"] = {
 						prepend_args = { "--aosp" },
+					},
+					fourmolu = {
+						command = "fourmolu",
+						prepend_args = { "--indent=4" },
 					},
 				},
 			})
