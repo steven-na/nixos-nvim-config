@@ -42,6 +42,8 @@ inputs:
             cmake-language-server
             jdt-language-server
             haskell-language-server
+            ghc
+            cabal-install
         ];
     };
 
